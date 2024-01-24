@@ -42,8 +42,8 @@ class Play extends Phaser.Scene {
             color: '#843605',
             align: 'right',
             padding: {
-                top: 5,
-                bottom: 5,
+            top: 5,
+            bottom: 5,
             },
             fixedWidth: 100
         }
@@ -56,7 +56,7 @@ class Play extends Phaser.Scene {
         scoreConfig.fixedWidth = 0
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5)
-            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or LEFT for Menu', scoreConfig).setOrigin(0.5)
+            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5)
             this.gameOver = true
         }, null, this)
     }
@@ -123,6 +123,6 @@ class Play extends Phaser.Scene {
         // score add and text update
         this.p1Score += ship.points
         this.scoreLeft.text = this.p1Score
-        this.sould.play('sfx-explosion')
+        this.sound.play('sfx-explosion')
     }
 }
