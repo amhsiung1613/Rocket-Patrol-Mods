@@ -72,12 +72,6 @@ class Play extends Phaser.Scene {
 
         this.starfield.tilePositionX -= 4
 
-        this.p1Rocket.update()
-
-        this.ship01.update()        // update spaceships (x3)
-        this.ship02.update()
-        this.ship03.update()
-
         //check collisions
         if (this.checkCollision(this.p1Rocket, this.ship03)) {
             this.p1Rocket.reset()
