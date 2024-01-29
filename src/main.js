@@ -3,12 +3,14 @@
 // Time: 12 hours
 //
 // Mods:
-// new enemy (5) working on placement of ship and speed of ship
-// alternating players (5)
-// mouse control (5)
+// new enemy (5) done
+// alternating players (5) wip
+// new scoring mechanism (5)
 // background sprite (1) done
-// display time (3)
+// display time (3) set up complete, can't get numbers to update
 // 
+// resources:
+//
 
 let config ={
     type: Phaser.AUTO,

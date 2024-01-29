@@ -26,7 +26,7 @@ class Play extends Phaser.Scene {
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0, 0)
         
         // add new enemy
-        this.fastship = new Spaceship2(this, game.config.width, borderUISize*3 + borderUISize*5, 'spaceship2', 0, 50).setOrigin(0, 0)
+        this.fastship = new Spaceship2(this, game.config.width + borderUISize*9, borderUISize*3 + borderUISize*6, 'spaceship2', 0, 50).setOrigin(0, 0)
 
         // define keys
         keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
@@ -36,6 +36,7 @@ class Play extends Phaser.Scene {
 
         // initialize score
         this.p1Score = 0
+        this.p2Score = 0
 
         // display score
         let scoreConfig = {
@@ -51,6 +52,7 @@ class Play extends Phaser.Scene {
             fixedWidth: 100
         }
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig)
+        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p2Score, scoreConfig)
         
         //GAME OVER flag
         this.gameOver = false
@@ -62,6 +64,23 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5)
             this.gameOver = true
         }, null, this)
+
+        // display timer
+        let timerConfig = {
+            fontFamilt: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
+            align: 'right',
+            padding: {
+            top: 5,
+            bottom: 5,
+            },
+            fixedWidth: 100
+        }
+        this.timeLeft = this.add.text(borderUISize*15 + borderPadding, borderUISize + borderPadding*2, this.game.settings.gameTimer/1000, timerConfig)
+
+        
     }
 
     update() {
@@ -73,7 +92,11 @@ class Play extends Phaser.Scene {
             this.scene.start('menuScene')
         }
 
+        // show timer
+        this.timeLeft--;
+
         this.starfield.tilePositionX -= 4
+
 
         //check collisions
         if (this.checkCollision(this.p1Rocket, this.ship03)) {
@@ -101,6 +124,9 @@ class Play extends Phaser.Scene {
             this.ship03.update()
             this.fastship.update()
         }
+
+        
+
     }
 
     checkCollision(rocket, ship) {
@@ -127,5 +153,7 @@ class Play extends Phaser.Scene {
         this.p1Score += ship.points
         this.scoreLeft.text = this.p1Score
         this.sound.play('sfx-explosion')
+
+        //time
     }
 }
