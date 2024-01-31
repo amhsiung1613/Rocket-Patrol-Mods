@@ -10,6 +10,7 @@
 // display time (3) done
 // fire (1) done
 // high score (1) done
+// particle emitter (5) done
 //
 // resources:
 
