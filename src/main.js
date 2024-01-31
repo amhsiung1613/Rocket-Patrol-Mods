@@ -4,13 +4,16 @@
 //
 // Mods:
 // new enemy (5) done
-// alternating players (5) wip
-// new scoring mechanism (5)
+// control rocket after its fired (1) done
+// new title screen (3) done
 // background sprite (1) done
 // display time (3) set up complete, can't get numbers to update
-// 
-// resources:
+// particle emitter(5)
+// fire (1)
 //
+// resources:
+// Mitchell Hudson (particle emitter)
+// https://youtu.be/LEDPCfot_GY?si=sE3tNQRHDaK9tUpN
 
 let config ={
     type: Phaser.AUTO,
