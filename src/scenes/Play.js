@@ -149,13 +149,21 @@ class Play extends Phaser.Scene {
         boom.on('animationcomplete', () => {    // callback after anim completes
             ship.reset()                        // reset ship position
             ship.alpha = 1                      // make ship visible again
-            boom.destroy()                     // remove explosion sprite
+            boom.destroy()                      // remove explosion sprite
         })
 
         // score add and text update
         this.p1Score += ship.points
         this.scoreLeft.text = this.p1Score
         this.sound.play('sfx-explosion')
+
+        let emitter= this.add.particles(ship.x,ship.y,'particle',{
+            alpha: (1, 0, 2000),
+            speed: 50,
+            lifespan: 750
+        });
+        //num of particles emmited 
+        emitter.explode(10);
     }
     
     
