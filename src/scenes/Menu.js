@@ -10,16 +10,16 @@ class Menu extends Phaser.Scene {
         this.load.image('spaceship', './assets/spaceship.png')
         this.load.image('spaceship2', './assets/spaceship2.png')
         this.load.image('starfield', './assets/starfield.png')
-        this.load.image('particle', './assets/particle.png')
+        
         
 
         //load spritesheet
-        //this.load.spritesheet('explosion', './assets/explosion.png', {
-        //    frameWidth: 64,
-        //    frameHeight: 32,
-        //    startFrame: 0,
-        //    endFrame: 9
-        //})
+        this.load.spritesheet('explosion', './assets/explosion.png', {
+           frameWidth: 64,
+           frameHeight: 32,
+           startFrame: 0,
+           endFrame: 9
+        })
 
         //load audio
         this.load.audio('sfx-select', './assets/sfx-select.wav')
@@ -29,11 +29,11 @@ class Menu extends Phaser.Scene {
 
     create() {
         //animation configuration
-        //this.anims.create({
-        //    key: 'explode',
-        //    frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0}),
-        //    frameRate: 30
-        //})
+        this.anims.create({
+           key: 'explode',
+           frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0}),
+           frameRate: 30
+        })
         
         let menuConfig = {
             fontFamilt: 'Courier',

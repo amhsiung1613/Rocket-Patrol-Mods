@@ -38,10 +38,11 @@ class Play extends Phaser.Scene {
         // initialize score
         this.p1Score = 0
 
+
         // display score
         let scoreConfig = {
             fontFamilt: 'Courier',
-            fontSize: '28px',
+            fontSize: '18px',
             backgroundColor: '#F3B141',
             color: '#843605',
             align: 'right',
@@ -51,7 +52,7 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig)
+        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*3, this.p1Score, scoreConfig)
         
         //GAME OVER flag
         this.gameOver = false
@@ -64,8 +65,14 @@ class Play extends Phaser.Scene {
             this.gameOver = true
         }, null, this)
 
+        this.fire = this.add.text(borderUISize*16 + borderPadding, borderUISize + borderPadding*35, "Fire!", scoreConfig)
+        this.fire.setVisible(false)
 
-        this.clockremain = this.add.text(borderUISize*11.5 + borderPadding, borderUISize + borderPadding*2, this.game.settings.gameTimer/1000, scoreConfig)
+        this.high_score = this.add.text(borderUISize*6 + borderPadding, borderUISize + borderPadding*3, "highest score: " + this.p1Score, scoreConfig)
+
+        this.clockremain = this.add.text(borderUISize*14 + borderPadding, borderUISize + borderPadding*3, this.game.settings.gameTimer/1000, scoreConfig)
+
+
     }
 
    
@@ -82,6 +89,16 @@ class Play extends Phaser.Scene {
 
         this.starfield.tilePositionX -= 4
 
+        this.high_score.text = "highest score: " + localStorage.getItem(this.high_score)
+        if (this.p1Score > localStorage.getItem(this.high_score)) {
+                localStorage.setItem(this.high_score, this.p1Score)
+        }
+
+        if (this.p1Rocket.isFiring) { 
+            this.fire.setVisible(true)
+        } else {
+            this.fire.setVisible(false)
+        }
 
         //check collisions
         if (this.checkCollision(this.p1Rocket, this.ship03)) {
@@ -111,7 +128,6 @@ class Play extends Phaser.Scene {
         }
 
         
-
     }
 
     checkCollision(rocket, ship) {
@@ -124,29 +140,22 @@ class Play extends Phaser.Scene {
     }
 
     shipExplode(ship) { 
+
         //temporarily hide ship
         ship.alpha = 0
         //create explosion sprite at ship's position
-        //let boom = ParticleEmitter;
-        //this.boom.play(ship.x, ship.y)              // play explode animation
-        //this.boom.on('animationcomplete', () => {    // callback after anim completes
-        //})
-        const p = this.add.particles('particle');
-        //p.x = new EmitterOp(config, ship.x, 0, true);
-        //p.y = new EmitterOp(config, ship.y, 0, true);
-        //p.on = true;
-        //p.BlendMode(BlendModes.ADD);
-        
-        ship.reset()                        // reset ship position
+        let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
+        boom.anims.play('explode')              // play explode animation
+        boom.on('animationcomplete', () => {    // callback after anim completes
+            ship.reset()                        // reset ship position
             ship.alpha = 1                      // make ship visible again
-        //    this.boom.destroy()                      // remove explosion sprite
-        
+            boom.destroy()                     // remove explosion sprite
+        })
+
         // score add and text update
         this.p1Score += ship.points
         this.scoreLeft.text = this.p1Score
         this.sound.play('sfx-explosion')
-
-        //time
     }
     
     
