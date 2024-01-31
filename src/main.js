@@ -13,6 +13,7 @@
 // particle emitter (5) done
 //
 // resources:
+// tutor helped!
 
 
 let config ={
